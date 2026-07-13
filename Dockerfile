@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y curl git python3 python3-pip python3-ya
 RUN curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 ENV PATH="/root/.hermes/bin:${PATH}"
 
-RUN find / -maxdepth 6 -type d -name "hermes-agent" 2>/dev/null || true
+RUN cd /usr/local/lib/hermes-agent && npm install --workspace web && npm run build -w web
 
 WORKDIR /app
 COPY . .
