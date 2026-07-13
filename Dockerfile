@@ -6,12 +6,11 @@ RUN apt-get update && apt-get install -y curl git python3 python3-pip python3-ya
 RUN curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 ENV PATH="/root/.hermes/bin:${PATH}"
 
+RUN find / -maxdepth 6 -type d -name "hermes-agent" 2>/dev/null || true
+
 WORKDIR /app
 COPY . .
 RUN chmod +x entrypoint.sh
-
-# Pre-build the dashboard web UI so --skip-build works at runtime
-RUN cd /root/.hermes/hermes-agent/web && npm install && npm run build
 
 EXPOSE 10000
 CMD ["./entrypoint.sh"]
