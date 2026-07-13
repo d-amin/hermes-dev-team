@@ -10,5 +10,8 @@ WORKDIR /app
 COPY . .
 RUN chmod +x entrypoint.sh
 
+# Pre-build the dashboard web UI so --skip-build works at runtime
+RUN cd /root/.hermes/hermes-agent/web && npm install && npm run build
+
 EXPOSE 10000
 CMD ["./entrypoint.sh"]

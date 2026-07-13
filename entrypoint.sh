@@ -11,4 +11,4 @@ config["dashboard"]["basic_auth"]["password_hash"] = os.environ["DASHBOARD_PASSW
 with open(path, "w") as f:
     yaml.dump(config, f)
 EOF
-exec hermes serve --port 10000 --host 0.0.0.0
+exec hermes dashboard --port 10000 --host 0.0.0.0 --skip-build --no-open
