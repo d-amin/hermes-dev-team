@@ -10,4 +10,4 @@ WORKDIR /app
 COPY . .
 
 EXPOSE 10000
-CMD ["hermes", "gateway", "start", "--port", "10000"]
+CMD ["hermes", "serve", "--port", "10000"]
