@@ -1,3 +1,7 @@
+model:
+  base_url: ''
+  default: google/gemini3.1flash-lite
+  provider: openrouter
 agent:
   max_turns: 60
   personalities:
@@ -39,50 +43,87 @@ agent:
       >w<
   reasoning_effort: medium
   verbose: false
+terminal:
+  backend: local
+  cwd: .
+  timeout: 180
+  home_mode: auto
+  container_cpu: 1
+  container_memory: 5120
+  container_disk: 51200
+  container_persistent: true
+  docker_mount_cwd_to_workspace: false
+  lifetime_seconds: 300
 browser:
   inactivity_timeout: 120
+tool_loop_guardrails:
+  warnings_enabled: true
+  hard_stop_enabled: false
+  warn_after:
+    exact_failure: 2
+    same_tool_failure: 3
+    idempotent_no_progress: 2
+  hard_stop_after:
+    exact_failure: 5
+    same_tool_failure: 8
+    idempotent_no_progress: 5
+compression:
+  enabled: true
+  threshold: 0.5
+  target_ratio: 0.2
+  protect_last_n: 20
+  protect_first_n: 3
+  codex_gpt55_autoraise: true
+  codex_app_server_auto: native
+prompt_caching:
+  cache_ttl: 5m
+display:
+  compact: false
+  busy_input_mode: interrupt
+  bell_on_complete: false
+  show_reasoning: false
+  streaming: true
+  skin: default
+  interim_assistant_messages: true
+  background_process_notifications: all
+  busy_ack_detail: true
+  cleanup_progress: false
+  long_running_notifications: true
+  tool_progress: all
+dashboard:
+  theme: default
+  basic_auth:
+    username: admin
+    password_hash: scrypt$16384$8$1$cjcUjkBIxsshEKI+oq3AaQ==$OTcHj8tR3r3Tph8ICK37oh318xmJstrDx5M5WQageNU=
+  font: fraunces
+stt:
+  enabled: true
+  local:
+    model: base
+  openai:
+    model: whisper-1
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+  flush_min_turns: 6
+  nudge_interval: 10
+delegation:
+  max_iterations: 50
+skills:
+  creation_nudge_interval: 15
 code_execution:
   max_tool_calls: 50
   timeout: 300
-compression:
-  codex_app_server_auto: native
-  codex_gpt55_autoraise: true
-  enabled: true
-  protect_first_n: 3
-  protect_last_n: 20
-  target_ratio: 0.2
-  threshold: 0.5
-dashboard:
-  basic_auth:
-    password_hash: scrypt$16384$8$1$cjcUjkBIxsshEKI+oq3AaQ==$OTcHj8tR3r3Tph8ICK37oh318xmJstrDx5M5WQageNU=
-    username: admin
-delegation:
-  max_iterations: 50
-display:
-  background_process_notifications: all
-  bell_on_complete: false
-  busy_ack_detail: true
-  busy_input_mode: interrupt
-  cleanup_progress: false
-  compact: false
-  interim_assistant_messages: true
-  long_running_notifications: true
-  show_reasoning: false
-  skin: default
-  streaming: true
-  tool_progress: all
+streaming:
+  enabled: false
+updates:
+  pre_update_backup: false
+  backup_keep: 5
+  non_interactive_local_changes: stash
+_config_version: 33
 group_sessions_per_user: true
-memory:
-  flush_min_turns: 6
-  memory_char_limit: 2200
-  memory_enabled: true
-  nudge_interval: 10
-  user_char_limit: 1375
-  user_profile_enabled: true
-model:
-  base_url: ''
-  default: google/gemini3.1flash-lite
-  provider: openrouter
 platform_toolsets:
   cli:
     - hermes-cli
@@ -106,48 +147,13 @@ platform_toolsets:
     - hermes-whatsapp
   yuanbao:
     - hermes-yuanbao
-prompt_caching:
-  cache_ttl: 5m
 session_reset:
   at_hour: 4
   idle_minutes: 1440
   mode: both
-skills:
-  creation_nudge_interval: 15
-streaming:
-  enabled: false
-stt:
-  enabled: true
-  local:
-    model: base
-  openai:
-    model: whisper-1
-terminal:
-  backend: local
-  container_cpu: 1
-  container_disk: 51200
-  container_memory: 5120
-  container_persistent: true
-  cwd: .
-  docker_mount_cwd_to_workspace: false
-  home_mode: auto
-  lifetime_seconds: 300
-  timeout: 180
-tool_loop_guardrails:
-  hard_stop_after:
-    exact_failure: 5
-    idempotent_no_progress: 5
-    same_tool_failure: 8
-  hard_stop_enabled: false
-  warn_after:
-    exact_failure: 2
-    idempotent_no_progress: 2
-    same_tool_failure: 3
-  warnings_enabled: true
-updates:
-  backup_keep: 5
-  non_interactive_local_changes: stash
-  pre_update_backup: false
+platforms:
+  telegram:
+    enabled: true
 
 # ── Security ──────────────────────────────────────────────────────────
 # Secret redaction is ON by default — strings that look like API keys,
